@@ -100,6 +100,7 @@ class _ChatHomepageState extends State<ChatHomepage> with SingleTickerProviderSt
             if(event is None){
               return Container();
             }
+
             if(error != null){
               context.showSnackbar(message: 'Error: $error', inWidget: true);
             }
@@ -109,14 +110,34 @@ class _ChatHomepageState extends State<ChatHomepage> with SingleTickerProviderSt
             return Container(
               color: Colors.white,
               margin: const EdgeInsets.only(bottom: 50),
-              child: ListView.builder(
-                  controller: _chatController,
-                  itemCount: chatGptRes.length,
-                  itemBuilder: (context, index) => _chaBubble(index)),
+              child: _buildChatList(event),
             );
           }),);
   }
 
+  Widget _buildChatList(Event? event){
+    final length = chatGptRes.length;
+    return ListView.builder(
+        shrinkWrap: true,
+        controller: _chatController,
+        itemCount: length,
+        itemBuilder: (context, index){
+          final children = <Widget>[
+            _chaBubble(index),
+          ];
+          if(event is GptTyping){
+            if(index == length-1){
+              children.add(Expanded(flex: 0,child: Text(event.msg,
+                style: const TextStyle(fontStyle: FontStyle.italic),),));
+            }
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: children,
+          );
+        });
+  }
   Widget _chaBubble(int index){
     GptChat chat = chatGptRes[index];
     final isHuman = chat.isHuman;

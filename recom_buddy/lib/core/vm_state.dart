@@ -18,3 +18,6 @@ class ScanEvent extends Event{}
 class OpenCameraEvent extends Event{}
 class Loading extends Event{}
 class None extends Event{}
+class GptTyping extends Event{
+  String msg = 'Gpt typing...';
+}
