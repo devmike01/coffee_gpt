@@ -4,11 +4,11 @@ import 'api_manager.dart';
 import 'core/vm_state.dart';
 import 'models/gpt_chat.dart';
 
-class MainViewModel extends ViewModel<List<GptChat>>{
+class ChatHomeViewModel extends ViewModel<List<GptChat>>{
 
   final ApiManager _apiManager;
 
-  MainViewModel(this._apiManager);
+  ChatHomeViewModel(this._apiManager);
 
   List<GptChat> chats = [];
 
@@ -19,10 +19,6 @@ class MainViewModel extends ViewModel<List<GptChat>>{
       chats.add(GptChat( (await _apiManager.getSuggestions(problemStr)).last, false));
       return chats;
     });
-  }
-
-  void addMyChat(){
-
   }
 
 }

@@ -8,12 +8,13 @@ class SuggestLogic:
     open_ai_suggestion = aoe.OpenAiEngine()
 
     def get_suggest(self, suggest_model: sm.SuggestModel):
-        suggest_m = suggest_model.content #eval()
+        suggest_m = suggest_model.content  # eval()
         print(suggest_m)
         try:
             if suggest_m is not None:
                 # Ask for suggestions
                 response = self.open_ai_suggestion.make_suggestion(suggest_m)
+                print('response: ' + str(response))
                 choices = response['choices']
                 # message = choices['message']
                 return {

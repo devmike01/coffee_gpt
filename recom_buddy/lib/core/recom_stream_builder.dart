@@ -21,15 +21,16 @@ class RStreamBuilder<T> extends StatelessWidget{
         return builder!.call(context, null, snapshot.error.toString(), null);
       }else if(snapshot.hasData){
         final state = snapshot.requireData;
+        print("object___#1: ${state.error} ${state.data} _ ${state.hasError} _ ${state.hasData}");
         if(state.hasData){
           return builder!.call(context, state.data, null, null);
         }else if(state.hasError){
-          return builder!.call(context, null, snapshot.error.toString(), null);
+          return builder!.call(context, null, state.error.toString(), null);
         }else if(state.isEvent){
          return builder!.call(context, null, null, state.event);
         }
       }
-      return builder!.call(context, null, null, null);
+      return builder!.call(context, null, null, None());
     }, stream: stream,);
   }
 
